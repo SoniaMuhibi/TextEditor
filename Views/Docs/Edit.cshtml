@@ -1,0 +1,42 @@
+﻿ @using Microsoft.AspNetCore.Identity
+ @model TextEditor.Models.Doc;
+ @inject UserManager<IdentityUser> userManager;
+@{
+    ViewData["Title"] = "Edit";
+}
+<h2>Edit</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+               
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+
+                <textarea id="editor" style="width: 60vw; height: 80vh" asp-for="Content" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">    
+                 <input type="hidden" asp-for="UserId" class="form-control" value="@userManager.GetUserId(User)" />
+            </div>
+        
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-info mt-3" asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
